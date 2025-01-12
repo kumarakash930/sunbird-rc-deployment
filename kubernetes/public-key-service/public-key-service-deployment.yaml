@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-key-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: public-key-service
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: public-key-service
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: public-key-service-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-public-key-service
+        volumeMounts:
+          - name: public-key-service-volume
+            mountPath: /etc/keys
+        ports:
+        - containerPort: 3300
+        envFrom:
+        - configMapRef:
+            name: public-key-service-configmap
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:3300/public-key-service/api/v1/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:3300/public-key-service/api/v1/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+      volumes:
+        - name: public-key-service-volume
+          configMap:
+            name: config-volume-public-key-service

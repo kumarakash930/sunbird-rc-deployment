@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-deployment
+spec:
+  selector:
+    matchLabels:
+      app: registry
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: registry-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-core:v2.0.1
+        volumeMounts:
+          - name: registry-volume1
+            mountPath: /home/sunbirdrc/config/public/_schemas
+          - name: registry-volume2
+            mountPath: /home/sunbirdrc/config/views/
+        ports:
+        - containerPort: 8081
+        env:
+          - name: connectionInfo_password
+            valueFrom:
+              secretKeyRef:
+                name: registry-secret
+                key: connectionInfo_password
+        #   - name: elastic_search_password
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: registry-secret
+        #         key: elastic_search_password
+        #   - name: sunbird_keycloak_user_password
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: registry-secret
+        #         key: sunbird_keycloak_user_password
+        envFrom:
+        - configMapRef:
+            name: registry-configmap
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "wget -nv -t1 --spider http://localhost:8081/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "wget -nv -t1 --spider http://localhost:8081/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+      volumes:
+        - name: registry-volume1
+          persistentVolumeClaim:
+            claimName: registry-pvc
+        - name: registry-volume2
+          configMap:
+            name: config-volume-registry

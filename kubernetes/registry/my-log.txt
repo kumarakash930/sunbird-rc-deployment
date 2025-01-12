@@ -1,0 +1,120 @@
+[32m
+[32m   ____ _  _ _  _ ___  _ ____ ___     ____ ____
+[32m   [__  |  | |\ | |__] | |__/ |  \ __ |__/ |
+[32m   ___] |__| | \| |__] | |  \ |__/    |  \ |___
+[32m
+[32m :: Spring Boot (v2.3.12.RELEASE) :: [39m
+
+08:20:10.229 [background-preinit] INFO  o.h.validator.internal.util.Version:21 - HV000001: Hibernate Validator 6.1.7.Final
+08:20:10.272 [main] INFO  o.s.boot.loader.JarLauncher:55 - Starting JarLauncher on registry-deployment-8594848785-g462v with PID 1 (/home/sunbirdrc started by root in /)
+08:20:10.272 [main] INFO  o.s.boot.loader.JarLauncher:652 - The following profiles are active: default
+08:20:10.504 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder:127 - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+dev.sunbirdrc.actors.AuditActor not found.
+ElasticSearchActor -> Actor[akka://sunbirdrc-actors/user/ElasticSearchActor#232949541]
+OSActor -> Actor[akka://sunbirdrc-actors/user/OSActor#-2005501484]
+SBRouter -> Actor[akka://sunbirdrc-actors/user/SBRouter#-925188791]
+ClaimPluginActor -> Actor[akka://sunbirdrc-actors/user/ClaimPluginActor#1715861114]
+MosipActor -> Actor[akka://sunbirdrc-actors/user/MosipActor#-288362541]
+PluginResponseActor -> Actor[akka://sunbirdrc-actors/user/PluginResponseActor#-861397070]
+GenericPluginActor -> Actor[akka://sunbirdrc-actors/user/GenericPluginActor#-449409124]
+NotificationActor -> Actor[akka://sunbirdrc-actors/user/NotificationActor#335122384]
+Indexer -> Actor[akka://sunbirdrc-actors/user/Indexer#-2094415610]
+DivocActor -> Actor[akka://sunbirdrc-actors/user/DivocActor#-275647288]
+DocumentUploadActor -> Actor[akka://sunbirdrc-actors/user/DocumentUploadActor#-1022675475]
+DivocPDFActor -> Actor[akka://sunbirdrc-actors/user/DivocPDFActor#-256024654]
+AutoAttestorActor -> Actor[akka://sunbirdrc-actors/user/AutoAttestorActor#-1023185408]
+08:20:11.819 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:335 - Bean 'org.springframework.retry.annotation.RetryConfiguration' of type [org.springframework.retry.annotation.RetryConfiguration$$EnhancerBySpringCGLIB$$19c41ef8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+08:20:12.060 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 8081 (http)
+08:20:12.068 [main] INFO  o.a.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8081"]
+08:20:12.068 [main] INFO  o.a.catalina.core.StandardService:173 - Starting service [Tomcat]
+08:20:12.068 [main] INFO  o.a.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.46]
+08:20:12.108 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+08:20:12.109 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext:285 - Root WebApplicationContext: initialization completed in 1691 ms
+08:20:12.153 [main] INFO  d.s.registry.util.OSResourceLoader:43 - Number of resources loaded 0
+08:20:12.157 [main] INFO  d.s.registry.util.OSResourceLoader:43 - Number of resources loaded 3
+08:20:12.227 [main] INFO  d.s.registry.util.DefinitionsManager:72 - loading resource:RevokedCredential.json with private field size:0 & signed fields size:0
+08:20:12.233 [main] INFO  d.s.registry.util.DefinitionsManager:72 - loading resource:Schema.json with private field size:0 & signed fields size:0
+08:20:12.237 [main] INFO  d.s.registry.util.DefinitionsManager:72 - loading resource:Issuer.json with private field size:0 & signed fields size:0
+08:20:12.238 [main] INFO  d.s.registry.util.DefinitionsManager:59 - loaded schema resource(s): 3
+08:20:12.332 [main] INFO  d.s.r.config.GenericConfiguration:275 - Added anonymous schema to auth filters
+08:20:12.402 [main] INFO  d.s.r.config.GenericConfiguration:262 - 3 definitions added to validator service 
+08:20:12.406 [main] INFO  d.s.registry.util.ServiceProvider:27 - Invoked search provider class with classname: dev.sunbirdrc.registry.service.NativeSearchService
+08:20:12.410 [main] INFO  d.s.registry.sink.shard.ShardAdvisor:25 - Invoked shard advisor class with classname: dev.sunbirdrc.registry.sink.shard.DefaultShardAdvisor
+08:20:12.506 [main] INFO  d.s.registry.util.ServiceProvider:46 - Invoked search provider class with classname: dev.sunbirdrc.registry.service.NativeReadService
+08:20:12.511 [main] INFO  d.s.registry.util.OSResourceLoader:43 - Number of resources loaded 7
+08:20:12.689 [main] WARN  o.d.c.k.builder.impl.KieBuilderImpl:394 - File 'workflow/statetransitions.drl' is in folder 'workflow' but declares package 'dev.sunbirdrc.workflow'. It is advised to have a correspondance between package and folder names.
+08:20:13.177 [main] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor:478 - Autowired annotation is not supported on static fields: static org.springframework.context.ApplicationContext dev.sunbirdrc.plugin.components.SpringContext.context
+08:20:13.202 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor:181 - Initializing ExecutorService
+08:20:13.203 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor:181 - Initializing ExecutorService 'taskExecutor'
+08:20:13.205 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor:181 - Initializing ExecutorService
+08:20:13.205 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor:181 - Initializing ExecutorService 'auditExecutor'
+08:20:13.611 [main] WARN  o.s.b.a.g.t.GroovyTemplateAutoConfiguration:86 - Cannot find template location: classpath:/templates/ (please add some templates, check your Groovy configuration, or set spring.groovy.template.check-template-location=false)
+08:20:13.794 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler:181 - Initializing ExecutorService 'taskScheduler'
+08:20:13.828 [main] INFO  o.a.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8081"]
+08:20:13.839 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 8081 (http) with context path ''
+08:20:13.847 [main] WARN  d.s.registry.service.ISearchService:69 - Populates SearchQuery for limit/offset(optional): null
+08:20:13.926 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog:212 - MLog clients using slf4j logging.
+08:20:13.980 [main] INFO  com.mchange.v2.c3p0.C3P0Registry:212 - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+08:20:14.062 [main] INFO  c.m.v.c.i.AbstractPoolBackedDataSource:212 - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 31eollb71l16v8q0po2k|46507dda, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> true, identityToken -> 31eollb71l16v8q0po2k|46507dda, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:postgresql://db-service:5432/registry, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 3600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 200, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+08:20:39.374 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08:20:39.375 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet:525 - Initializing Servlet 'dispatcherServlet'
+08:20:39.379 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet:547 - Completed initialization in 4 ms
+08:20:39.427 [http-nio-8081-exec-2] INFO  c.m.v.c.i.AbstractPoolBackedDataSource:212 - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 31eollb71l16v8q0po2k|7c310fc8, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> true, identityToken -> 31eollb71l16v8q0po2k|7c310fc8, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:postgresql://db-service:5432/registry, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 3600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 200, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+08:20:39.432 [http-nio-8081-exec-1] INFO  c.m.v.c.i.AbstractPoolBackedDataSource:212 - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 31eollb71l16v8q0po2k|3879ac10, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> true, identityToken -> 31eollb71l16v8q0po2k|3879ac10, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:postgresql://db-service:5432/registry, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 3600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 200, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+08:20:44.363 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#0] WARN  c.m.v.resourcepool.BasicResourcePool:223 - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@3074f627 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:613)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:161)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+08:20:44.363 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#1] WARN  c.m.v.resourcepool.BasicResourcePool:223 - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@5a86ed8b -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:613)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:161)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+08:20:44.363 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#2] WARN  c.m.v.resourcepool.BasicResourcePool:223 - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@4b6703ca -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:613)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:161)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+08:20:44.364 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#0] WARN  c.m.v.resourcepool.BasicResourcePool:220 - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@65f3f9e2 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+08:20:44.365 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#2] WARN  c.m.v.resourcepool.BasicResourcePool:220 - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@65f3f9e2 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+08:20:44.366 [C3P0PooledConnectionPoolManager[identityToken->31eollb71l16v8q0po2k|46507dda]-HelperThread-#1] WARN  c.m.v.resourcepool.BasicResourcePool:220 - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@65f3f9e2 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.

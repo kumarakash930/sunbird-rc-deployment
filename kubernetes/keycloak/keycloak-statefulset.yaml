@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: keycloak-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: keycloak
+  serviceName: "keycloak-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: keycloak-container
+        image: quay.io/keycloak/keycloak:16.1.1
+        volumeMounts:
+          - name: keycloak-volume
+            mountPath: /opt/jboss/keycloak/imports
+        ports:
+        - containerPort: 8080
+        - containerPort: 9990
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-secret
+                key: DB_PASSWORD
+          - name: KEYCLOAK_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-secret
+                key: KEYCLOAK_PASSWORD
+        envFrom:
+          - configMapRef:
+              name: keycloak-configmap
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - curl -f http://localhost:9990/ || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - curl -f http://localhost:9990/ || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+      volumes:
+        - name: keycloak-volume
+          configMap:
+            name: config-volume-keycloak

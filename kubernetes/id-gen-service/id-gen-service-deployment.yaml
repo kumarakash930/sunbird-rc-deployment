@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: id-gen-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: id-gen-service
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: id-gen-service
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: id-gen-service-container
+        image: ghcr.io/sunbird-rc/id-gen-service:v2.0.1
+        ports:
+        - containerPort: 8088
+        envFrom:
+        - configMapRef:
+            name: id-gen-service-configmap

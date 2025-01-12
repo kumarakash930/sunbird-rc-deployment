@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-deployment
+spec:
+  selector:
+    matchLabels:
+      app: metrics
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: metrics
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: metrics-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-metrics
+        ports:
+        - containerPort: 8070
+        envFrom:
+        - configMapRef:
+            name: metrics-configmap

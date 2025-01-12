@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+  serviceName: "zookeeper-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: zookeeper-container
+        image: confluentinc/cp-zookeeper:latest
+        ports:
+        - containerPort: 2181
+        envFrom:
+        - configMapRef:
+            name: zookeeper-configmap

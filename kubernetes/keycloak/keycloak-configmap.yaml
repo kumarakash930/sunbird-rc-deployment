@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-configmap
+
+data:
+  KEYCLOAK_LOGO: "https://svgshare.com/i/hCs.svg"
+  DB_VENDOR: "postgres"
+  DB_ADDR: "db-service.default.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_DATABASE: "registry"
+  DB_USER: "postgres"
+  KEYCLOAK_USER: "admin"
+  KEYCLOAK_IMPORT: "/opt/jboss/keycloak/imports/realm-export.json"
+  PROXY_ADDRESS_FORWARDING: "true"
+  JAVA_OPTS_APPEND: "-Dinfinispan.thread.pool.size=10"

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: nginx-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: nginx-volume
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:80 || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:80 || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+      volumes:
+        - name: nginx-volume
+          configMap:
+            name: config-volume-nginx

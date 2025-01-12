@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  serviceName: "redis-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: redis-container
+        image: redis:latest
+        ports:
+        - containerPort: 6379

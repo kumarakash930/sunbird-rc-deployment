@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vault-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: vault
+  serviceName: "vault-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: vault
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: vault-container
+        image: vault:1.13.3
+        volumeMounts:
+          - name: vault-volume1
+            mountPath: /vault/config
+          - name: vault-volume2
+            mountPath: /vault/file
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+        ports:
+        - containerPort: 8200
+        envFrom:
+        - configMapRef:
+            name: vault-configmap
+        command: ["vault", "server", "-config=/vault/config/vault.json"]
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "wget --spider http://127.0.0.1:8200/v1/sys/health || exit 1"
+          initialDelaySeconds: 180
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "wget --spider http://127.0.0.1:8200/v1/sys/health || exit 1"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
+      volumes:
+        - name: vault-volume1
+          configMap:
+            name: config-volume-vault
+        - name: vault-volume2
+          persistentVolumeClaim:
+            claimName: vault-pvc

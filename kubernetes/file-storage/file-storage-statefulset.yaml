@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: file-storage-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: file-storage
+  serviceName: "file-storage-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: file-storage
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: file-storage-container
+        image: quay.io/minio/minio
+        volumeMounts:
+          - name: file-storage-volume
+            mountPath: /data
+        ports:
+        - containerPort: 9000
+        - containerPort: 9001
+        envFrom:
+        - configMapRef:
+            name: file-storage-configmap
+        command: ["/usr/bin/minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - curl -f http://localhost:9000/minio/health/live || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - curl -f http://localhost:9000/minio/health/live || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          failureThreshold: 10
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+      volumes:
+        - name: file-storage-volume
+          persistentVolumeClaim:
+            claimName: file-storage-pvc

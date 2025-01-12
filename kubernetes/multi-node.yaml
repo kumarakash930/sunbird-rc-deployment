@@ -1,0 +1,17 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+    extraMounts:
+      - hostPath: /home/bhcp0213/"devops training/sunbird-rc-core-main (1)/sunbird-rc-core-main/volumes-for-kind/db-pv"
+        containerPath: /my-volume/db
+      - hostPath: /home/bhcp0213/"devops training/sunbird-rc-core-main (1)/sunbird-rc-core-main/volumes-for-kind/registry-pv"
+        containerPath: /my-volume/registry
+      - hostPath: /home/bhcp0213/"devops training/sunbird-rc-core-main (1)/sunbird-rc-core-main/volumes-for-kind/vault-pv"
+        containerPath: /my-volume/vault
+      - hostPath: /home/bhcp0213/"devops training/sunbird-rc-core-main (1)/sunbird-rc-core-main/volumes-for-kind/file-storage-pv"
+        containerPath: /my-volume/file-storage
+      - hostPath: /home/bhcp0213/"devops training/sunbird-rc-core-main (1)/sunbird-rc-core-main/volumes-for-kind/digilocker-certificate-api-pv"
+        containerPath: /my-volume/digilocker-certificate-api
+  # - role: worker
