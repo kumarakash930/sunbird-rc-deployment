@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-service
+spec:
+  selector:
+    app: identity
+  type: NodePort
+  ports:
+    - name: "port1"
+      protocol: TCP
+      port: 3332
+      targetPort: 3332

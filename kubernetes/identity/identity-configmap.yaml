@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: identity-configmap
+data:
+  DATABASE_URL: "postgres://postgres:postgres@db-service:5432/registry"
+  VAULT_ADDR: "http://vault-service:8200"
+  VAULT_BASE_URL: "http://vault-service:8200/v1"
+  VAULT_TOKEN: "hvs.XjHOsmsReyddQykz3jQE9feR"
+  VAULT_ROOT_PATH: "http://vault-service:8200/v1/kv"
+  VAULT_TIMEOUT: "5000"
+  VAULT_PROXY: "false"
+  SIGNING_ALGORITHM: "Ed25519Signature2020"
+  JWKS_URI: ""
+  ENABLE_AUTH: "false"
+  WEB_DID_BASE_URL: "https://example.com/identifier"

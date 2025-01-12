@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-deployment
+spec:
+  selector:
+    matchLabels:
+      app: identity
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: identity
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: identity-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-identity-service:v2.0.1
+        ports:
+        - containerPort: 3332
+        envFrom:
+        - configMapRef:
+            name: identity-configmap
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "curl -f http://localhost:3332/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 5
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "curl -f http://localhost:3332/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 5
