@@ -1,0 +1,14 @@
+{{- define "common.pv" -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolume.name }} 
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - {{ .Values.persistentVolume.accessMode }}
+  storageClassName: {{ .Values.persistentVolume.storageClass }}
+  hostPath:
+    path: {{ .Values.persistentVolume.hostPath }}
+{{- end -}}

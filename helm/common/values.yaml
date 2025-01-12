@@ -1,0 +1,33 @@
+name: "my-app"
+replica: 3
+image: "nginx:latest"
+port: 80
+
+service_name: "my-service"
+port_name: "my-port"
+container_name: "my-container"
+
+environment:
+  - name: ENVIRONMENT
+    value: "production"
+  - name: APP_MODE
+    value: "standalone"
+
+healthcheck:
+  test:
+    - "CMD"
+    - "curl"
+    - "-f"
+    - "localhost:80/health"
+  interval: 30s
+  timeout: 10s
+  retries: 3s
+
+volumeMounts:
+  - name: "my-volume"
+    mountPath: "/data"
+
+volumes:
+  - name: "my-volume"
+    persistentVolumeClaim:
+      claimName: "my-pvc"

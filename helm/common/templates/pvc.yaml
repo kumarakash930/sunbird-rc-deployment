@@ -1,0 +1,13 @@
+{{- define "common.pvc" -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistentVolumeClaim.name }} 
+spec:
+  accessModes:
+    - {{ .Values.persistentVolumeClaim.accessMode }}
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
+{{- end -}}

@@ -1,0 +1,62 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replica | default 1}}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+
+    spec:
+      containers:
+      - name: {{ .Values.container_name }}
+        image: {{ .Values.image }}
+        ports:
+          - containerPort: {{ .Values.port }}
+
+        envFrom:
+        {{- with .Values.environment }}
+        - configMapRef:
+            name: {{ .name }}
+        {{- end }}
+
+        {{- with .Values.healthcheck }}
+        livenessProbe:
+          exec:
+            command:
+              {{- toYaml .test | nindent 12 }}
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        {{- end }}
+
+        {{- with .Values.healthcheck }}
+        readinessProbe:
+          exec:
+            command:
+              {{- toYaml .test | nindent 12 }}
+          initialDelaySeconds: 30
+          periodSeconds: {{ .interval | default 30 }}
+          timeoutSeconds: {{ .timeout | default 10 }}
+          failureThreshold: {{ .retries | default 3 }}
+        {{- end }}
+        
+        volumeMounts:
+          {{- with .Values.volumeMounts }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+      volumes:
+        {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+{{- end }}
