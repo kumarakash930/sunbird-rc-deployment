@@ -1,0 +1,44 @@
+name: kafka
+
+image: confluentinc/cp-kafka:latest
+
+replica: 1
+
+environment:
+  name: kafka-config
+
+container_name: kafka-container
+
+service_name: kafka-service
+
+port_name: kafka-port
+port: "9092"
+
+securityContext:
+  runAsUser: 0
+
+healthcheck:
+  test: 
+    - "kafka-topics"
+    - "--list"
+    - "--bootstrap-server"
+    - "localhost:9092"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: kafka-config
+  data:
+    KAFKA_BROKER_ID: "1"
+    KAFKA_ZOOKEEPER_CONNECT: "zookeeper-service.default.svc.cluster.local:2181"
+    KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-0.kafka-service.default.svc.cluster.local:9092,OUTSIDE://localhost:9094"
+    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT"
+    KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
+    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+    CONFIG_BASE_PATH: "/etc/keys"
+    KAFKA_ALLOW_PLAINTEXT_LISTENER: "yes"
+    KAFKA_ZOOKEEPER_HOSTS: "zookeeper-service.default.svc.cluster.local:2181"
+
+
+

@@ -1,0 +1,41 @@
+name: identity
+
+image: ghcr.io/sunbird-rc/sunbird-rc-identity-service:v2.0.1
+
+replica: 1
+
+environment:
+  name: identity-config
+
+container_name: identity-container
+
+service_name: identity-service
+
+port_name: identity-port
+port: "3332"
+
+healthcheck:
+  test: 
+    - sh
+    - -c
+    - "curl -f http://localhost:3332/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: identity-config
+  data:
+    DATABASE_URL: "postgres://postgres:postgres@db-service:5432/registry"
+    VAULT_ADDR: "http://vault-service:8200"
+    VAULT_BASE_URL: "http://vault-service:8200/v1"
+    VAULT_TOKEN: "hvs.XjHOsmsReyddQykz3jQE9feR"
+    VAULT_ROOT_PATH: "http://vault-service:8200/v1/kv"
+    VAULT_TIMEOUT: "5000"
+    VAULT_PROXY: "false"
+    SIGNING_ALGORITHM: "Ed25519Signature2020"
+    JWKS_URI: ""
+    ENABLE_AUTH: "false"
+    WEB_DID_BASE_URL: "https://example.com/identifier"
+
+
