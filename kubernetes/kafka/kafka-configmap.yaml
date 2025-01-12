@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-configmap
+data:
+  KAFKA_BROKER_ID: "1"
+  KAFKA_ZOOKEEPER_CONNECT: "zookeeper-service.default.svc.cluster.local:2181"
+  KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-statefulset-0.kafka-service.default.svc.cluster.local:9092,OUTSIDE://localhost:9094"
+  KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT"
+  KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
+  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+  CONFIG_BASE_PATH: "/etc/keys"
+  KAFKA_ALLOW_PLAINTEXT_LISTENER: "yes"
+  KAFKA_ZOOKEEPER_HOSTS: "zookeeper-service.default.svc.cluster.local:2181"

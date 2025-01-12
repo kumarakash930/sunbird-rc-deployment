@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: kafka
+  serviceName: "kafka-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: kafka-container
+        image: confluentinc/cp-kafka:latest
+        # command: ["/bin/sh", "-c"]
+        # args:
+        #   - |
+        #     cd ../../usr/bin &&
+        #     ./kafka-topics --bootstrap-server kafka-service:9092 --create --topic events --partitions 1 --replication-factor 1 &&
+        #     ./kafka-topics --bootstrap-server kafka-service:9092 --list &&
+        #     chmod +x kafka-topics
+        ports:
+        - containerPort: 9092
+        securityContext:
+          runAsUser: 0
+        envFrom:
+        - configMapRef:
+            name: kafka-configmap
+        livenessProbe:
+          exec:
+            command:
+              - "kafka-topics"
+              - "--list"
+              - "--bootstrap-server"
+              - "localhost:9092"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "kafka-topics --list --bootstrap-server localhost:9092"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        # resources:
+        #   requests:
+        #     memory: "512Mi"
+        #     cpu: "500m"
+        #   limits:
+        #     memory: "1Gi"
+        #     cpu: "1"
