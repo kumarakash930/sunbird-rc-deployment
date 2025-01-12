@@ -1,0 +1,43 @@
+name: digilocker-certificate-api
+
+image: ghcr.io/sunbird-rc/sunbird-rc-digilocker-certificate-api
+
+replica: 1
+
+environment:
+  name: digilocker-certificate-api-config
+
+container_name: digilocker-certificate-api-container
+
+service_name: digilocker-certificate-api-service
+
+port_name: digilocker-certificate-api-port
+port: "8087"
+
+configMap:
+  name: digilocker-certificate-api-config
+  data:
+    KEYCLOAK_CLIENT_ID: "admin-api"
+    DIGILOCKER_AUTH_KEYNAME: "x-digilocker-hmac"
+    PORT: "8087"
+
+volumeMounts:
+  - name: digilocker-certificate-api-volume
+    mountPath: /go/config/
+
+volumes:
+  - name: digilocker-certificate-api-volume
+    persistentVolumeClaim:
+      claimName: digilocker-certificate-api-pvc
+
+persistentVolume:
+  name: digilocker-certificate-api-pv
+  accessMode: ReadWriteMany
+  storageClass: standard
+  hostPath: /my-volume/digilocker-certificate-api
+
+persistentVolumeClaim:
+  name: digilocker-certificate-api-pvc
+  accessMode: ReadWriteMany
+  storageClass: standard
+

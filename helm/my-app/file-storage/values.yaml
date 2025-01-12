@@ -1,0 +1,54 @@
+name: file-storage
+
+image: quay.io/minio/minio
+
+replica: 1
+
+environment:
+  name: file-storage-config
+
+container_name: file-storage-container
+
+service_name: file-storage-service
+
+port_name: file-storage-port
+port: "9000"
+
+healthcheck:
+  test: 
+    - /bin/sh
+    - -c
+    - curl -f http://localhost:9000/minio/health/live || exit 1
+  interval: 30
+  timeout: 10
+  retries: 3
+
+minio:
+  command: ["/usr/bin/minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
+
+configMap:
+  name: file-storage-config
+  data:
+    MINIO_ROOT_USER: "admin"
+    MINIO_ROOT_PASSWORD: "12345678"
+
+volumeMounts:
+  - name: file-storage-volume
+    mountPath: /data
+
+volumes:
+  - name: file-storage-volume
+    persistentVolumeClaim:
+      claimName: file-storage-pvc
+
+persistentVolume:
+  name: file-storage-pv
+  accessMode: ReadWriteMany
+  storageClass: standard
+  hostPath: /my-volume/file-storage
+
+persistentVolumeClaim:
+  name: file-storage-pvc
+  accessMode: ReadWriteMany
+  storageClass: standard
+

@@ -1,0 +1,33 @@
+name: es
+
+image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23 
+
+replica: 1
+
+environment:
+  name: es-config
+
+service_name: es-service
+
+port_name: es-port
+port: "9200"
+container_name: es-container
+
+healthcheck:
+  test: 
+    - 'curl'
+    - '-f'
+    - 'localhost:9200/_cluster/health'
+    - '--header'
+    - 'Authorization: Basic ZWxhc3RpYzpEa0llZFBQU0Ni'
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: es-config
+  data:
+  discovery.type: "single-node"
+  ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+  ELASTIC_PASSWORD: "12345"
+  xpack.security.enabled: "false"

@@ -1,0 +1,52 @@
+name: db
+
+image: postgres
+
+replica: 1
+
+environment:
+  name: db-config
+
+container_name: db-container
+
+service_name: db-service
+
+port_name: db-port
+port: "5432"
+
+healthcheck:
+  test: 
+    - pg_isready 
+    - -U 
+    - postgres
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: db-config
+  data:
+    POSTGRES_DB: "registry"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "postgres"
+
+# volumeMounts:
+#   - name: db-volume-4
+#     mountPath: /var/lib/postgresql/data
+
+volumes:
+  - name: db-volume-4
+    persistentVolumeClaim:
+    claimName: db-pvc
+
+persistentVolume:
+  name: db-pv
+  accessMode: ReadWriteMany
+  storageClass: standard
+  hostPath: /my-volume/db
+
+persistentVolumeClaim:
+  name: db-pvc
+  accessMode: ReadWriteMany
+  storageClass: standard
+

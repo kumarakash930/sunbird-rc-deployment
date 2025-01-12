@@ -1,0 +1,33 @@
+name: credential-schema
+
+image: ghcr.io/sunbird-rc/sunbird-rc-credential-schema:v2.0.1
+
+replica: 1
+
+environment:
+  name: credential-schema-config
+
+container_name: credential-schema-container
+
+service_name: credential-schema-service
+
+port_name: credential-schema-port
+port: "3333"
+
+healthcheck:
+  test: 
+    - sh
+    - -c
+    - "curl -f http://localhost:3333/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: credential-schema-config
+  data:
+    DATABASE_URL: "postgres://postgres:postgres@db-service:5432/registry"
+    IDENTITY_BASE_URL: "http://identity-service:3332"
+    JWKS_URI: ""
+    ENABLE_AUTH: "false"
+

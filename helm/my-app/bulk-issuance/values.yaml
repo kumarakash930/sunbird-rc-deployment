@@ -1,0 +1,22 @@
+name: bulk-issuance
+
+image: ghcr.io/sunbird-rc/sunbird-rc-bulk-issuance
+
+replica: 1
+
+environment:
+  name: bulk-issuance-config
+
+container_name: bulk-issuance-container
+
+service_name: bulk-issuance-service
+
+port_name: bulk-issuance-port
+port: "5565"
+
+configMap:
+  name: bulk-issuance-config
+  data:
+    REGISTRY_BASE_URL: "http://registry-service:8081/"
+    DATABASE_HOST: "db-service"
+

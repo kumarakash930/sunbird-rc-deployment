@@ -1,0 +1,26 @@
+name: context-proxy-service
+
+image: ghcr.io/sunbird-rc/sunbird-rc-context-proxy-service
+
+replica: 1
+
+
+container_name: context-proxy-service-container
+
+service_name: context-proxy-service-service
+
+port_name: context-proxy-service-port
+port: "4400"
+
+healthcheck:
+  test: 
+    - /bin/sh
+    - -c
+    - "curl -f localhost:4400/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+
+
+

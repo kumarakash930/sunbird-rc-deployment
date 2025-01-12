@@ -1,0 +1,34 @@
+name: claim-ms
+
+image: ghcr.io/sunbird-rc/sunbird-rc-claim-ms:v2.0.1
+
+replica: 1
+
+environment:
+  name: claim-ms-config
+
+container_name: claim-ms-container
+
+service_name: claim-ms-service
+
+port_name: claim-ms-port
+port: "8082"
+
+healthcheck:
+  test: 
+    - sh
+    - -c
+    - "wget -nv -t1 --spider http://localhost:8082/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: claim-ms-config
+  data:
+    connectionInfo_uri: "jdbc:postgresql://db-service:5432/registry"
+    connectionInfo_username: "postgres"
+    connectionInfo_password: "postgres"
+    sunbirdrc_url: "http://registry-service.default.svc.cluster.local:8081"
+
+
