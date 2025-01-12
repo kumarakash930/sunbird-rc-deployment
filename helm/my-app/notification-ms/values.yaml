@@ -1,0 +1,32 @@
+name: notification-ms
+
+image: ghcr.io/sunbird-rc/sunbird-rc-notification-service:v2.0.1
+
+replica: 1
+
+environment:
+  name: notification-ms-config
+
+container_name: notification-ms-container
+
+service_name: notification-ms-service
+
+port_name: notification-ms-port
+port: "8765"
+
+healthcheck:
+  test: 
+    - sh
+    - -c
+    - "wget -nv -t1 --spider http://localhost:8765/notification-service/v1/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: notification-ms-config
+  data:
+    TRACK_NOTIFICATIONS: "false"
+    KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+
+

@@ -1,0 +1,35 @@
+name: nginx
+
+image: ghcr.io/sunbird-rc/sunbird-rc-nginx
+
+replica: 1
+
+
+container_name: nginx-container
+
+service_name: nginx-service
+
+port_name: nginx-port
+port: "80"
+
+healthcheck:
+  test: 
+    - /bin/sh
+    - -c
+    - "curl -f localhost:80 || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+
+volumeMounts:
+  - name: nginx-volume
+    mountPath: /etc/nginx/nginx.conf
+    subPath: nginx.conf
+
+volumes:
+  - name: nginx-volume
+    configMap:
+      name: config-volume-nginx
+
+

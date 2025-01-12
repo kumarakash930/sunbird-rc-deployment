@@ -1,0 +1,98 @@
+templates:
+  default: &default
+    chart: ./{{`{{ .Release.Name }}`}}
+    version: 1.0.0
+    missingFileHandler: Warn
+releases:
+  - name: es
+    chart: ./es
+    installed: true
+
+  - name: db
+    chart: ./db
+    installed: true
+
+  - name: keycloak
+    chart: ./keycloak
+    installed: true
+
+  - name: registry
+    chart: ./registry
+    installed: true
+
+  - name: claim-ms
+    chart: ./claim-ms
+    installed: true
+
+  - name: vault
+    chart: ./vault
+    installed: true
+
+  - name: identity
+    chart: ./identity
+    installed: true
+
+  - name: credential-schema
+    chart: ./credential-schema
+    installed: true
+
+  - name: credential
+    chart: ./credential
+    installed: true
+
+  - name: file-storage
+    chart: ./file-storage
+    installed: true
+
+  - name: notification-ms
+    chart: ./notification-ms
+    installed: true
+
+  - name: zookeeper
+    chart: ./zookeeper
+    installed: true
+
+  - name: kafka
+    chart: ./kafka
+    installed: true
+
+  - name: public-key-service
+    chart: ./public-key-service
+    installed: true
+
+  - name: context-proxy-service
+    chart: ./context-proxy-service
+    installed: true
+
+  - name: nginx
+    chart: ./nginx
+    installed: true
+
+  - name: metrics
+    chart: ./metrics
+    installed: true
+
+  - name: redis
+    chart: ./redis
+    installed: true
+
+  - name: digilocker-certificate-api
+    chart: ./digilocker-certificate-api
+    installed: true
+
+  - name: bulk-issuance
+    chart: ./bulk-issuance
+    installed: true
+
+  - name: clickhouse
+    chart: ./clickhouse
+    installed: true
+
+  - name: id-gen-service
+    chart: ./id-gen-service
+    installed: true
+
+  - name: encryption-service
+    chart: ./encryption-service
+    installed: true
+  

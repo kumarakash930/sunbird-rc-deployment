@@ -1,0 +1,40 @@
+name: public-key-service
+
+image: ghcr.io/sunbird-rc/sunbird-rc-public-key-service
+
+replica: 1
+
+environment:
+  name: public-key-service-config
+
+container_name: public-key-service-container
+
+service_name: public-key-service-service
+
+port_name: public-key-service-port
+port: "3300"
+
+healthcheck:
+  test: 
+    - /bin/sh
+    - -c
+    - "curl -f localhost:3300/public-key-service/api/v1/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+volumeMounts:
+  - name: public-key-service-volume
+    mountPath: /etc/keys
+
+volumes:
+  - name: public-key-service-volume
+    configMap:
+      name: config-volume-public-key-service
+
+configMap:
+  name: public-key-service-config
+  data:
+    CONFIG_BASE_PATH: "/etc/keys"
+
+

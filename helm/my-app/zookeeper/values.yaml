@@ -1,0 +1,24 @@
+name: zookeeper
+
+image: confluentinc/cp-zookeeper:latest
+
+replica: 1
+
+environment:
+  name: zookeeper-config
+
+container_name: zookeeper-container
+
+service_name: zookeeper-service
+
+port_name: zookeeper-port
+port: "2181"
+
+configMap:
+  name: zookeeper-config
+  data:
+    ZOOKEEPER_CLIENT_PORT: "2181"
+    ZOOKEEPER_TICK_TIME: "2000"
+    ALLOW_ANONYMOUS_LOGIN: "yes"
+
+

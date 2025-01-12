@@ -1,0 +1,64 @@
+name: vault
+
+image: vault:1.13.3
+
+replica: 1
+
+environment:
+  name: vault-config
+
+container_name: vault-container
+
+service_name: vault-service
+
+port_name: vault-port
+port: "8200"
+
+healthcheck:
+  test: 
+    - /bin/sh
+    - -c
+    - "wget --spider http://127.0.0.1:8200/v1/sys/health || exit 1"
+  interval: 30
+  timeout: 10
+  retries: 3
+
+configMap:
+  name: vault-config
+  data:
+    VAULT_ADDR: "http://0.0.0.0:8200"
+    VAULT_API_ADDR: "http://0.0.0.0:8200"
+    VAULT_ADDRESS: "http://0.0.0.0:8200"
+
+securityContext:
+  capabilities:
+    add: ["IPC_LOCK"]
+
+minio:
+  command: ["vault", "server", "-config=/vault/config/vault.json"]
+
+volumeMounts:
+  - name: vault-volume1
+    mountPath: /vault/config
+  - name: vault-volume2
+    mountPath: /vault/file
+
+volumes:
+  - name: vault-volume1
+    configMap:
+      name: config-volume-vault
+  - name: vault-volume2
+    persistentVolumeClaim:
+      claimName: vault-pvc
+
+persistentVolume:
+  name: vault-pv
+  accessMode: ReadWriteMany
+  storageClass: standard
+  hostPath: /my-volume/vault
+
+persistentVolumeClaim:
+  name: vault-pvc
+  accessMode: ReadWriteMany
+  storageClass: standard
+
