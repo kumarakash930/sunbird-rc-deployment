@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digilocker-certificate-api-deployment
+spec:
+  selector:
+    matchLabels:
+      app: digilocker-certificate-api
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: digilocker-certificate-api
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: digilocker-certificate-api-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-digilocker-certificate-api
+        volumeMounts:
+          - name: digilocker-certificate-api-volume
+            mountPath: /go/config/
+        ports:
+        - containerPort: 8087
+        envFrom:
+        - configMapRef:
+            name: digilocker-certificate-api-configmap
+      volumes:
+        - name: digilocker-certificate-api-volume
+          persistentVolumeClaim:
+            claimName: digilocker-certificate-api-pvc

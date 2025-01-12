@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: claim-ms-configmap
+data:
+  connectionInfo_uri: "jdbc:postgresql://db-service:5432/registry"
+  connectionInfo_username: "postgres"
+  # connectionInfo_password: "postgres"
+  sunbirdrc_url: "http://registry-service.default.svc.cluster.local:8081"

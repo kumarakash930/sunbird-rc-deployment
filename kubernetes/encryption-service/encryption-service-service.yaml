@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: encryption-service-service
+spec:
+  selector:
+    app: encryption-service
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8013
+      targetPort: 8013

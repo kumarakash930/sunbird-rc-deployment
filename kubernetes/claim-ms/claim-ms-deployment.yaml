@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claim-ms-deployment
+spec:
+  selector:
+    matchLabels:
+      app: claim-ms
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: claim-ms
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fluentd-sidecar
+        image: fluent/fluentd:v1.14
+      - name: claim-ms-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-claim-ms:v2.0.1
+        ports:
+        - containerPort: 8082
+        env:
+          - name: connectionInfo_password
+            valueFrom:
+              secretKeyRef:
+                name: claim-ms-secret
+                key: connectionInfo_password
+        envFrom:
+        - configMapRef:
+            name: claim-ms-configmap
+        - secretRef:
+            name: claim-ms-secret
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "wget -nv -t1 --spider http://localhost:8082/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "wget -nv -t1 --spider http://localhost:8082/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clickhouse-service
+spec:
+  selector:
+    app: clickhouse
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 9002
+      targetPort: 9000

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: context-proxy-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: context-proxy-service
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: context-proxy-service
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fluentd-sidecar
+        image: fluent/fluentd:v1.14
+      - name: context-proxy-service-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-context-proxy-service
+        ports:
+        - containerPort: 4400
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:4400/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "curl -f localhost:4400/health || exit 1"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 10

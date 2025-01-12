@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: es
+  serviceName: "es-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: es
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fluentd-sidecar
+        image: fluent/fluentd:v1.14
+      - name: es-container
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
+        ports:
+        - containerPort: 9200
+          protocol: TCP
+        - containerPort: 9300
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: es-configmap
+        - secretRef:
+            name: es-secret
+        livenessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: 9200
+            httpHeaders:
+            - name: Authorization
+              value: "Basic ZWxhc3RpYzpEa0llZFBQU0Ni"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 4
+        readinessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: 9200
+            httpHeaders:
+            - name: Authorization
+              value: "Basic ZWxhc3RpYzpEa0llZFBQU0Ni"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 4

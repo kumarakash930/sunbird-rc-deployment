@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: clickhouse-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: clickhouse
+  serviceName: "clickhouse-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: clickhouse
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: clickhouse-container
+        image: clickhouse/clickhouse-server:23.4.2.11-alpine
+        ports:
+        - containerPort: 9000
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1"
+          initialDelaySeconds: 50
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3

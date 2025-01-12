@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: digilocker-certificate-api-configmap
+data:
+  KEYCLOAK_CLIENT_ID: "admin-api"
+  DIGILOCKER_AUTH_KEYNAME: "x-digilocker-hmac"
+  PORT: "8087"

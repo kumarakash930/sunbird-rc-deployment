@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: db
+  serviceName: "db-service"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fluentd-sidecar
+        image: fluent/fluentd:v1.14
+      - name: db-container
+        image: postgres
+        volumeMounts:
+          - name: db-volume-2
+            mountPath: /var/lib/postgresql/data
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: db-configmap
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: db-configmap
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: POSTGRES_PASSWORD
+        livenessProbe:
+          exec:
+            command:
+              - pg_isready 
+              - -U 
+              - postgres
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 5
+        readinessProbe:
+          exec:
+            command:
+              - pg_isready 
+              - -U 
+              - postgres
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 5
+      volumes:
+        - name: db-volume-2
+          persistentVolumeClaim:
+            claimName: db-pvc

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bulk-issuance-configmap
+data:
+  REGISTRY_BASE_URL: "http://registry-service:8081/"
+  DATABASE_HOST: "db-service"

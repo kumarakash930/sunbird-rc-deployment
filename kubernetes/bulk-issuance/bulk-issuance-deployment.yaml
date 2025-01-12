@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bulk-issuance-deployment
+spec:
+  selector:
+    matchLabels:
+      app: bulk-issuance
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: bulk-issuance
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fluentd-sidecar
+        image: fluent/fluentd:v1.14
+      - name: bulk-issuance-container
+        image: ghcr.io/sunbird-rc/sunbird-rc-bulk-issuance
+        ports:
+        - containerPort: 5665
+        envFrom:
+        - configMapRef:
+            name: bulk-issuance-configmap
